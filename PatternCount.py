@@ -5,8 +5,3 @@ def PatternCount(Text,Pattern):
             count = count + 1
     return count
 
-
-Text = "GACCATCAAAACTGATAAACTACTTAAAAATCAGT"
-Pattern = "AAA"
-print(PatternCount(Text, Pattern))
-
