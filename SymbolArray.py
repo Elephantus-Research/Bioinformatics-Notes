@@ -1,5 +1,4 @@
 from PatternCount import PatternCount
-
 def SymbolArray(Genome, symbol):
     arr = []
     n = len(Genome)
