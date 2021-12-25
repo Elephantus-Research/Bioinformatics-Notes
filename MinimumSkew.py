@@ -15,7 +15,7 @@ def MinimumSkew(Genome):
         n+=1
     return pos
 
-Genome = "TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT"
+Genome = "GATACACTTCCCGAGTAGGTACTG"
 print(MinimumSkew(Genome))
 
 
