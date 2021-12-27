@@ -96,4 +96,7 @@ profile = {
     'C': [0.1, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.1, 0.2, 0.4, 0.6],
     'T': [0.7, 0.2, 0.0, 0.0, 0.1, 0.1, 0.0, 0.5, 0.8, 0.7, 0.3, 0.4]
 }
+
+Text= "TCGGTA"
+print(Pr(Text, profile_2))
 print(GreedyMotifSearch(Dna, 3, 5))
