@@ -83,6 +83,49 @@ def GreedyMotifSearch(Dna,k,t):
             best_motifs = Motifs
     return best_motifs
 
+def CountWithPseudocounts(Motifs):
+    t = len(Motifs)
+    k = len(Motifs[0])
+    count = {}
+    for s in "ACGT":
+        count[s] = []
+        for j in range(k):
+            count[s].append(1)
+    for i in range(t):
+        for j in range(k):
+            s = Motifs[i][j]
+            count[s][j] +=1
+    return count
+
+def ProfileWithPseudocounts(Motifs):
+    t = len(Motifs)
+    k = len(Motifs[0])
+    count = CountWithPseudocounts(Motifs)
+    for i in range(k):
+        a=0
+        for s in "ACGT":
+            a = a+count[s][i]
+        for s in "ACGT":
+            count[s][i] = count[s][i]/a
+    profile=count
+    return profile
+
+def GreedyMotifSearchWithPseudocounts(Dna,k,t):
+    best_motifs = []
+    for i in range(0,t):
+        best_motifs.append(Dna[i][0:k])
+    n = len(Dna[0])
+    for m in range(n-k+1):
+        Motifs=[]
+        Motifs.append(Dna[0][m:m+k])
+        for j in range(i,t):
+            p = Profile(Motifs[0:j])
+            Motifs.append(PrMostProbableKmer(Dna[j],k,p))
+        if Score(Motifs) < Score(best_motifs):
+            best_motifs = Motifs
+    return best_motifs
+
+
 Dna = [
 "GGCGTTCAGGCA",
 "AAGAATCAGTCA",
