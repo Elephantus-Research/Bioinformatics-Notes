@@ -1,3 +1,5 @@
+import random
+
 def Count(Motifs):
     count = {}
     n = len(Motifs[0])
@@ -125,6 +127,34 @@ def GreedyMotifSearchWithPseudocounts(Dna,k,t):
             best_motifs = Motifs
     return best_motifs
 
+def Motifs(Profile, Dna):
+    motifs = []
+    t = len(Dna)
+    k = 4
+    for i in range(t):
+        motif = PrMostProbableKmer(Dna[i],k,Profile)
+        motifs.append(motif)
+    return motifs
+
+def RandomMotifs(Dna, k,t):
+    t = len(Dna)
+    l = len(Dna[0])
+    RandMotif=[]
+    for i in range(t):
+        r = random.randint(0,l-k)
+        RandMotif.append(Dna[i][r:r+k])
+    return RandMotif
+
+def RandomizedMorifSearch(Dna,k,t):
+    M = RandomMotifs(Dna,k,t)
+    best_motitfs = M
+    while True:
+        Profile = ProfileWithPseudocounts(M)
+        M = Motifs(Profile,Dna)
+        if Score(M) < Score(best_motifs):
+            best_motifs = M
+        else:
+            return best_motifs
 
 Dna = [
 "GGCGTTCAGGCA",
