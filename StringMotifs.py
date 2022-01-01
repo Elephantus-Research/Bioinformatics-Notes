@@ -156,6 +156,48 @@ def RandomizedMorifSearch(Dna,k,t):
         else:
             return best_motifs
 
+def Normalize(P):
+    dictionary = {}
+    for key,value in P.items():
+        dictionary[key] = P[key]/sum(P.values())
+    return dictionary
+
+def WeightedDie(Probabilities):
+    kmer = ''
+    rand = random.uniform(0,1)
+    for p in Probabilities:
+        rand -= Probabilities[p]
+        if rand <= 0: 
+            return p
+    return kmer
+
+def ProfileGeneratedString(Text,profile,k):
+    n = len(Text)
+    probabilities = {}
+    for i in range(0,n-k+1):
+        probabilities[Text[i:i+k]] = Pr(Text[i:i+k],profile)
+    probabilites = Normalize(probabilities)
+    return WeightedDie(probabilities)
+
+def GibbsSampler(Dna,k,t,N):
+    best_motifs = [] 
+    Motifs = RandomMotifs(Dna,k,t)
+    best_motifs = Motifs
+    for j in range(1,N):
+       i = random.randint(0,t-1)
+       reduced_motifs = []
+       for j in range(0,t):
+           if j != i:
+               reduced_motifs.append(Motifs[j])
+        Profile = ProfileWithPseudocounts(reduced_motifs)
+        Motifs_i = ProfileGeneratedString(Dna[i], Profile, k)
+        Motifs[i] = Motifs_i
+        if Score(Motifs) < Score(best_motifs):
+            best_motifs = Motifs
+        return best_motifs
+
+
+
 Dna = [
 "GGCGTTCAGGCA",
 "AAGAATCAGTCA",
